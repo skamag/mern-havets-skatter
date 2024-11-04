@@ -8,11 +8,10 @@ export const sendReservation = async (req, res, next) => {
   }
   try {
     await Reservation.create(firstName, lastName, email, phone, date, time)
-    res.status(200),
-      json({
-        success: true,
-        message: "Reservation Sent Successffully!",
-      })
+    res.status(201).json({
+      success: true,
+      message: "Reservation Sent Successffully!",
+    })
   } catch (error) {
     if (error.name === "ValidationError") {
       const validationErrors = Object.values(error.errors).map(
@@ -20,5 +19,6 @@ export const sendReservation = async (req, res, next) => {
       )
       return next(new ErrorHandler(validationErrors.join(" , "), 400))
     }
+    return next(error)
   }
 }

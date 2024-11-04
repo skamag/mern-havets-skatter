@@ -1,7 +1,9 @@
 import express from "express"
-import { sendReservation } from "../controller/reservation"
+import { sendReservation } from "../controller/reservation.js"
 const router = express.Router()
 
 router.post("/send", sendReservation)
+
+console.log("test")
 
 export default router
